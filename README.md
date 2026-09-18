@@ -223,6 +223,6 @@ MIT
 
 ---
 
-Built by **Kasra Aghajani** — [github.com/Kasra-Aghajanii](https://github.com/Kasra-Aghajanii)
+Built by **Kasra Aghajani** â€” [github.com/Kasra-Aghajanii](https://github.com/Kasra-Aghajanii)
 
 Open to freelance work on real-time data pipelines and streaming infrastructure. Reach me through GitHub.
