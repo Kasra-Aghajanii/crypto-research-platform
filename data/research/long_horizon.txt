@@ -1,0 +1,195 @@
+============================================================================================
+DATA INVENTORY  (reported before any testing)
+============================================================================================
+  symbol     total  traded  synthetic   first traded     last bar  funding d
+  BTC         2213    1292        921     2023-02-26   2026-09-09       1217
+  ETH         2213    1292        921     2023-02-26   2026-09-09       1217
+  ATOM        2213    1292        921     2023-02-26   2026-09-09       1217
+  SOL         2187    1286        901     2023-03-04   2026-09-09       1217
+  BNB         2213    1285        928     2023-03-05   2026-09-09       1217
+  AVAX        2178    1285        893     2023-03-05   2026-09-09       1217
+  LTC         2213    1272        941     2023-03-18   2026-09-09       1217
+  DOGE        2213    1256        957     2023-04-03   2026-09-09       1217
+  CRV         2200    1214        986     2023-05-15   2026-09-09       1214
+  LINK        2210    1211        999     2023-05-18   2026-09-09       1211
+  XRP         2180    1181        999     2023-06-17   2026-09-09       1180
+  BCH         2167    1168        999     2023-06-30   2026-09-09       1168
+  AAVE        2150    1151        999     2023-07-17   2026-09-09       1150
+  TRX         2130    1131        999     2023-08-06   2026-09-09       1131
+  UNI         2125    1126        999     2023-08-11   2026-09-09       1126
+  DOT         2093    1094        999     2023-09-12   2026-09-09       1094
+  ADA         2053    1054        999     2023-10-22   2026-09-09       1054
+  NEAR        2035    1044        991     2023-11-01   2026-09-09       1044
+  FIL         2030    1031        999     2023-11-14   2026-09-09       1031
+  ETC         1971     972        999     2024-01-12   2026-09-09        972
+
+  symbols with traded history : 20 of 20
+  median traded bars          : 1211
+  longest traded history      : 1292 bars
+
+  Hyperliquid backfills daily candles from an index source for dates before
+  the venue traded; those bars carry zero volume and zero trades. They are
+  real prices but not Hyperliquid market data, and carry no funding.
+  Using: TRADED bars only
+============================================================================================
+
+============================================================================================
+STATISTICAL POWER  (which cells are testable, before any results)
+============================================================================================
+  usable symbols               : 20
+  median traded bars / symbol  : 1211
+  mean pairwise correlation    : 0.609
+
+  Pooling correlated symbols multiplies rows far faster than information.
+  n_effective = (k * n) / (1 + (k - 1) * rho)
+
+    horizon   n/symbol   pooled raw   n_effective         verdict
+         3d      403.7         8073         642.2        testable
+         7d      173.0         3460         275.2        testable
+        14d       86.5         1730         137.6        testable
+        30d       40.4          807          64.2        testable
+        60d       20.2          404          32.1        testable
+        90d       13.5          269          21.4      UNTESTABLE
+
+  A cell with fewer than 30 effective observations supports
+  neither a positive nor a negative conclusion, so no p-value is reported
+  for it. That is a statement about the data, not about the signal.
+============================================================================================
+
+============================================================================================
+BENCHMARK  (what doing nothing clever earned over the same windows)
+============================================================================================
+    horizon    mean return    up-rate   per-symbol range
+         3d           +26b      49.3%   -24 to +65 bps
+         7d           +60b      48.1%   -63 to +157 bps
+        14d          +116b      47.6%   -128 to +318 bps
+        30d          +262b      47.1%   -280 to +723 bps
+        60d          +477b      45.2%   -727 to +1525 bps
+        90d          +694b      44.5%   -1097 to +2562 bps
+
+  The sample covers a period in which crypto rose substantially. A signal
+  that is simply long most of the time collects this drift without knowing
+  anything, so it is subtracted from every result that follows.
+============================================================================================
+
+============================================================================================
+RESULTS  (all edges measured against buy-and-hold, not against zero)
+============================================================================================
+  signal              h  n_ind  n_eff  long%   hit%  null%    bench   excess      net   p_hit   p_exc  edge
+  momentum_60d        3   7465    642     44   50.1   50.5       -0      +17       +8  0.8746  0.5682  
+  momentum_60d        7   3192    275     44   50.1   51.0       +1      +52      +44  0.8096  0.4453  
+  momentum_60d       14   1592    138     44   49.4   51.3       -1     +122     +112  0.6706  0.3889  
+  momentum_60d       30    738     64     42   52.6   52.2       +3     +143     +138  0.9012  0.7178  
+  momentum_60d       60    365     32     42   53.2   53.1      +15      +51      +56  1.0000  0.9529  
+  momentum_60d       90    238     21     46   55.9   54.2     +221      +82     +294      --      --  UNTESTABLE
+  momentum_120d       3   7066    642     42   50.3   50.7       +0      +18       +9  0.8746  0.5551  
+  momentum_120d       7   3024    275     42   51.7   51.1       +1      +44      +36  0.9040  0.5299  
+  momentum_120d      14   1506    138     42   51.0   51.5       +1      +87      +79  0.8651  0.5507  
+  momentum_120d      30    698     64     42   49.9   52.3       -1      +24      +14  0.7098  0.9521  
+  momentum_120d      60    345     32     39   50.1   53.7       -1     -298     -309  0.7250  0.7311  
+  momentum_120d      90    227     21     44   48.0   52.6       +3     -876     -882      --      --  UNTESTABLE
+  momentum_200d       3   6530    642     40   50.4   50.8       -0       +6       -3  0.8746  0.8311  
+  momentum_200d       7   2792    275     40   50.8   51.5       +1      +12       +4  0.8566  0.8602  
+  momentum_200d      14   1392    138     40   48.9   52.0       +4      +25      +20  0.4437  0.8612  
+  momentum_200d      30    645     64     41   49.5   52.6      +11     -181     -180  0.7085  0.6044  
+  momentum_200d      60    318     32     45   47.2   53.3      +62     -611     -558  0.4838  0.3930  
+  momentum_200d      90    210     21     42   41.0   53.9      +73    -1239    -1175      --      --  UNTESTABLE
+  tsmom_30d           3   7465    642     47   50.6   50.4       +1      +32      +23  0.9371  0.2819  
+  tsmom_30d           7   3192    275     47   49.9   50.7       +2      +44      +37  0.8095  0.5251  
+  tsmom_30d          14   1592    138     47   49.1   51.0       +3      +77      +71  0.7337  0.5868  
+  tsmom_30d          30    738     64     44   52.6   51.7       -1     +210     +200  0.9006  0.5963  
+  tsmom_30d          60    365     32     40   56.2   52.5      -36     +360     +314  0.7258  0.6743  
+  tsmom_30d          90    238     21     44   58.4   53.5     +117     +202     +310      --      --  UNTESTABLE
+  tsmom_90d           3   7066    642     44   50.5   50.6       +1      +13       +6  0.9685  0.6515  
+  tsmom_90d           7   3024    275     44   51.8   51.1       +3      +32      +26  0.7634  0.6507  
+  tsmom_90d          14   1506    138     45   51.1   51.4       +7     +109     +107  0.9322  0.4513  
+  tsmom_90d          30    698     64     42   49.3   52.1       +4      +98      +93  0.8028  0.8078  
+  tsmom_90d          60    345     32     39   50.4   53.3      -13     +118      +96  0.7264  0.8919  
+  tsmom_90d          90    227     21     45   46.7   52.7      +57     -563     -514      --      --  UNTESTABLE
+  tsmom_180d          3   6466    642     45   49.8   50.8       +3      -22      -28  0.6359  0.4591  
+  tsmom_180d          7   2765    275     45   49.2   51.4       +9      -46      -47  0.4694  0.5137  
+  tsmom_180d         14   1378    138     46   48.3   51.9      +19     -103      -94  0.4446  0.4775  
+  tsmom_180d         30    638     64     45   45.6   52.3      +25     -311     -295  0.2636  0.4451  
+  tsmom_180d         60    313     32     47   43.5   52.9      +84     -745     -670  0.3763  0.3323  
+  tsmom_180d         90    207     21     48   39.1   52.5     +120    -1563    -1452      --      --  UNTESTABLE
+  vol_regime          3   7063    642     55   50.8   50.0       +3       -1       -7  0.6932  0.9758  
+  vol_regime          7   3023    275     56   50.1   49.8       +7      +24      +21  0.9519  0.7312  
+  vol_regime         14   1506    138     56   52.3   49.7      +13      +40      +44  0.6097  0.7828  
+  vol_regime         30    698     64     56   55.2   49.5      +23     +448     +462  0.4540  0.2728  
+  vol_regime         60    345     32     49   58.8   49.9      -24     +565     +532  0.2956  0.5208  
+  vol_regime         90    227     21     50   53.7   50.2      +25     +651     +667      --      --  UNTESTABLE
+  drawdown            3   5778    642    100   48.7   49.1      +26      -13       +3  0.8436  0.6502  
+  drawdown            7   2541    275    100   47.1   47.8      +58      -41       +9  0.9039  0.5376  
+  drawdown           14   1296    138    100   47.5   47.3     +115      -83      +23  0.9322  0.5490  
+  drawdown           30    617     64    100   45.5   46.9     +262     -137     +116  0.9005  0.6901  
+  drawdown           60    312     32    100   43.3   44.9     +484     -116     +360  1.0000  0.8853  
+  drawdown           90    207     21    100   42.5   44.6     +718     -240     +469      --      --  UNTESTABLE
+  funding_extreme     3   3980    642     43   51.5   50.1       -4      -10      -22  0.4776  0.7602  
+  funding_extreme     7   2143    275     45   50.6   50.2       -6      -47      -62  0.9519  0.5122  
+  funding_extreme    14   1257    138     46   49.6   50.3       -9     -104     -122  1.0000  0.4866  
+  funding_extreme    30    653     64     46   45.2   49.7      -30     -340     -379  0.5328  0.3883  
+  funding_extreme    60    338     32     47   49.1   50.3      -43     -151     -204  1.0000  0.8441  
+  funding_extreme    90    230     21     43   48.7   51.1      -76     -297     -382      --      --  UNTESTABLE
+
+  long%   = share of firings that were long (exposes directional bias)
+  hit%    = win rate;  null% = win rate expected with NO skill, given how
+            often the signal went long and how often the market rose
+  bench   = what buy-and-hold earned over the same windows, in bps
+  excess  = return in excess of that benchmark -- THIS is the edge
+  net     = raw return after costs, NOT benchmark adjusted
+
+  A long-biased signal in a rising market earns the drift whether or not it
+  knows anything. Testing gross return against zero would score that as a
+  win. Every test here is against the benchmark instead.
+
+============================================================================================
+CROSS-SECTIONAL MOMENTUM  (long top / short bottom, dollar neutral)
+============================================================================================
+  Not a directional bet on crypto: it bets that relative ranking persists,
+  which survives the correlation that cripples pooling elsewhere.
+
+    lookback  horizon   n_ind    win%   gross bps    net bps   p_gross  verdict
+        180d        3     368    56.2       +14.5       +5.5    0.5580  testable
+         30d        3     418    52.6        -9.2      -18.2    0.6422  testable
+         90d        3     398    55.8        +3.4       -5.6    0.8720  testable
+        180d        7     157    54.8       +39.1      +30.1    0.4381  testable
+         30d        7     179    55.3       +35.1      +26.1    0.4440  testable
+         90d        7     170    57.6       +34.3      +25.3    0.4245  testable
+        180d       14      78    51.3       +72.7      +63.7    0.4697  testable
+         30d       14      89    58.4       +61.7      +52.7    0.5238  testable
+         90d       14      85    57.6      +108.2      +99.2    0.1739  testable
+        180d       30      36    55.6      +113.2     +104.2    0.6127  testable
+         30d       30      41    53.7       -42.7      -51.7    0.8493  testable
+         90d       30      39    61.5      +203.8     +194.8    0.3592  testable
+        180d       60      18    72.2       +93.2      +84.2        --  UNTESTABLE
+         30d       60      20    60.0       +35.2      +26.2        --  UNTESTABLE
+         90d       60      19    57.9      +547.4     +538.4        --  UNTESTABLE
+        180d       90      12    66.7      +502.3     +493.3        --  UNTESTABLE
+         30d       90      13    61.5       +91.8      +82.8        --  UNTESTABLE
+         90d       90      13    61.5     +1223.8    +1214.8        --  UNTESTABLE
+
+  Costs: 4.5 bps per side, charged on both legs of the spread.
+
+============================================================================================
+VERDICT
+============================================================================================
+  cells with any firings        : 54
+  testable (n_eff >= 30)        : 45
+  UNTESTABLE (too few obs)      : 9
+  edge surviving FDR            : 0
+  ...and profitable after costs : 0
+
+  NO SIGNAL SURVIVES CORRECTION on the testable cells.
+
+  9 cells could not be tested at all. That is a limit of the
+  available history, not a finding about those signals:
+    affected horizons: 90d
+
+  Under Bonferroni: 0 cell(s) show excess over buy-and-hold.
+
+  Pooling caveat: mean pairwise correlation across 20 symbols is 0.609.
+  Every p-value above is computed on n_eff, not on the raw pooled count, so
+  the correlation is priced into the numbers rather than only the prose.
+============================================================================================
+
+Wrote data\research\long_horizon.csv

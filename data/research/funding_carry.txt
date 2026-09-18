@@ -1,0 +1,76 @@
+==============================================================================
+FUNDING CARRY -- structural, non-forecasting
+==============================================================================
+  symbols   : BTC, ETH, SOL
+  holds     : [8, 24, 72, 168, 336, 720, 1440] hours
+  costs     : 18.0 bps round trip across BOTH legs
+  position  : long spot + short perp, delta neutral
+==============================================================================
+
+FUNDING PROFILE
+------------------------------------------------------------------------------
+  symbol      obs   days     mean/hr  annualised  % positive  % at floor  mean prem
+  BTC        5755    240  0.00000511       4.48%      75.5%       39.8%     -3.81b
+  ETH        5755    240  0.00000597       5.23%      79.2%       46.8%     -3.54b
+  SOL        5755    240 -0.00000126      -1.11%      57.6%       30.9%     -4.29b
+
+  'at floor' = funding sitting exactly on Hyperliquid's 0.01%/8h base rate,
+  which is where it settles whenever the premium term is small.
+
+CARRY RESULTS  (pooled across symbols, non-overlapping windows)
+------------------------------------------------------------------------------
+    hold     n   funding    basis    gross      net    win%   ann.net    p_net  flags
+       8  2157     +0.26    +0.00    +0.26   -17.74    0.0%   -194.2%   0.0000  NET-FDR, BONF, WIN-FDR
+      24   717     +0.79    -0.00    +0.79   -17.21    0.0%    -62.8%   0.0000  NET-FDR, BONF, WIN-FDR
+      72   237     +2.31    +0.02    +2.28   -15.72    0.8%    -19.1%   0.0000  NET-FDR, BONF, WIN-FDR
+     168   102     +5.45    +0.10    +5.34   -12.66   13.7%     -6.6%   0.0000  NET-FDR, BONF, WIN-FDR
+     336    51    +10.89    +0.21   +10.69    -7.31   39.2%     -1.9%   0.0375  
+     720    21    +16.14    +0.34   +15.80    -2.20   61.9%     -0.3%   0.8136  
+    1440     9    +18.41    +0.84   +17.57    -0.43   66.7%     -0.0%   0.9873  
+
+  funding = collected over the hold; basis = premium change (a cost when
+  positive); gross = funding - basis; net = gross - costs. All in bps.
+
+PER SYMBOL
+------------------------------------------------------------------------------
+  BTC    h=8     n=719   net=  -17.59bps ann= -192.6% win=  0.0% p=0.0000
+  ETH    h=8     n=719   net=  -17.52bps ann= -191.9% win=  0.0% p=0.0000
+  SOL    h=8     n=719   net=  -18.10bps ann= -198.2% win=  0.0% p=0.0000
+  BTC    h=24    n=239   net=  -16.76bps ann=  -61.2% win=  0.0% p=0.0000
+  ETH    h=24    n=239   net=  -16.57bps ann=  -60.5% win=  0.0% p=0.0000
+  SOL    h=24    n=239   net=  -18.30bps ann=  -66.8% win=  0.0% p=0.0000
+  BTC    h=72    n=79    net=  -14.35bps ann=  -17.5% win=  0.0% p=0.0000
+  ETH    h=72    n=79    net=  -13.80bps ann=  -16.8% win=  1.3% p=0.0000
+  SOL    h=72    n=79    net=  -19.01bps ann=  -23.1% win=  1.3% p=0.0000
+  BTC    h=168   n=34    net=   -9.42bps ann=   -4.9% win= 14.7% p=0.0000
+  ETH    h=168   n=34    net=   -8.19bps ann=   -4.3% win= 20.6% p=0.0000
+  SOL    h=168   n=34    net=  -20.35bps ann=  -10.6% win=  5.9% p=0.0000
+  BTC    h=336   n=17    net=   -0.85bps ann=   -0.2% win= 41.2% p=0.8219
+  ETH    h=336   n=17    net=   +1.62bps ann=    0.4% win= 52.9% p=0.6454
+  SOL    h=336   n=17    net=  -22.71bps ann=   -5.9% win= 23.5% p=0.0106
+  BTC    h=720   n=7     net=  +13.19bps ann=    1.6% win= 71.4% p=0.1795
+  ETH    h=720   n=7     net=  +19.51bps ann=    2.4% win= 85.7% p=0.0455
+  SOL    h=720   n=7     net=  -39.29bps ann=   -4.8% win= 28.6% p=0.0847
+  BTC    h=1440  n=3     net=  +32.05bps ann=    1.9% win= 66.7% p=0.2734
+  ETH    h=1440  n=3     net=  +46.22bps ann=    2.8% win=100.0% p=0.1338
+  SOL    h=1440  n=3     net=  -79.56bps ann=   -4.8% win= 33.3% p=0.2685
+
+==============================================================================
+VERDICT
+==============================================================================
+  holding periods tested       : 7
+  profitable after costs       : 0
+  ...and significant after FDR : 0
+
+  NOTHING IS PROFITABLE. Funding does not cover the round trip on both
+  legs at any tested holding period.
+
+  UNMODELLED RISKS -- these decide whether the above is real:
+    * Spot leg execution. Hyperliquid spot books are far thinner than the
+      perp books; size is limited and slippage is not modelled here.
+    * Margin and liquidation. The short perp needs collateral, and an
+      adverse move can force a close even when the pair is flat overall.
+    * Funding regime change. A rate positive for months can invert; this
+      measures one period, not a guarantee.
+    * Correlated symbols. Pooling BTC/ETH/SOL understates variance.
+==============================================================================

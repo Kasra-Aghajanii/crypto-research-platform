@@ -1,0 +1,51 @@
+[project]
+name = "trading-platform"
+version = "0.2.0"
+description = "AI-powered quantitative crypto trading platform (Hyperliquid perps)"
+requires-python = ">=3.12"
+dependencies = [
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+    "aiokafka>=0.10",
+    "websockets>=12.0",
+    "httpx>=0.27",
+    "redis>=5.0",
+    "asyncpg>=0.29",
+    "orjson>=3.10",
+]
+
+[project.optional-dependencies]
+dev = ["mypy>=1.10", "pytest>=8.2", "pytest-asyncio>=0.23", "ruff>=0.5"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+warn_unreachable = true
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["aiokafka.*", "websockets.*", "asyncpg.*", "sqlglot.*"]
+ignore_missing_imports = true
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "UP", "B", "SIM", "C4", "D", "ANN", "RUF", "BLE", "S"]
+ignore = [
+    "D203",    # incompatible with D211
+    "D213",    # incompatible with D212
+    "ANN401",  # explicit Any is deliberate on wire-payload boundaries
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["S101", "ANN001", "ANN201", "SLF001"]
+"__init__.py" = ["F401"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]

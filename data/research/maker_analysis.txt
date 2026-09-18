@@ -1,0 +1,57 @@
+    macd_histogram         h=1    net   +0.06 bps  (gross +0.06, n=14820, p_gross=0.8982)  
+    macd_histogram         h=5    net   +0.00 bps  (gross +0.00, n=2964, p_gross=0.9987)  
+
+  -0.30 bps/side (-0.6 round trip) -- maker rebate (high tier)
+    macd_histogram         h=100  net  +82.23 bps  (gross +81.63, n=147, p_gross=0.0883)  
+    ema_cross              h=100  net  +26.34 bps  (gross +25.74, n=147, p_gross=0.5927)  
+    macd_histogram         h=20   net  +26.24 bps  (gross +25.64, n=741, p_gross=0.0074) *
+    funding_rate           h=100  net  +14.27 bps  (gross +13.67, n=147, p_gross=0.7777)  
+    obv_divergence         h=20   net  +12.07 bps  (gross +11.47, n=335, p_gross=0.4008)  
+    rsi                    h=5    net   +8.51 bps  (gross +7.91, n=83, p_gross=0.7388)  
+    obv_divergence         h=5    net   +5.42 bps  (gross +4.82, n=751, p_gross=0.2536)  
+    rsi                    h=100  net   +2.80 bps  (gross +2.20, n=43, p_gross=0.9866)  
+    obv_divergence         h=1    net   +1.74 bps  (gross +1.14, n=3006, p_gross=0.2118)  
+    funding_rate           h=5    net   +0.93 bps  (gross +0.33, n=2997, p_gross=0.8811)  
+    atr_momentum           h=1    net   +0.91 bps  (gross +0.31, n=14867, p_gross=0.5093)  
+    rsi_momentum           h=1    net   +0.85 bps  (gross +0.25, n=14910, p_gross=0.5884)  
+    macd_histogram         h=1    net   +0.66 bps  (gross +0.06, n=14820, p_gross=0.9014)  
+    macd_histogram         h=5    net   +0.60 bps  (gross +0.00, n=2964, p_gross=0.9991)  
+    ema_cross              h=1    net   +0.50 bps  (gross -0.10, n=14820, p_gross=0.8246)  
+    funding_rate           h=1    net   +0.30 bps  (gross -0.30, n=14994, p_gross=0.5126)  
+    atr_momentum           h=20   net   +0.28 bps  (gross -0.32, n=743, p_gross=0.9736)  
+    funding_rate           h=20   net   +0.24 bps  (gross -0.36, n=747, p_gross=0.9700)  
+
+==============================================================================
+VERDICT
+==============================================================================
+  profitable at +4.50 bps/side : 5
+  profitable at -0.30 bps/side : 18
+  newly crossing break-even    : 13
+
+  Cells that cross break-even only because the fee changed:
+    atr_momentum           h=1    net   +0.91 bps  gross +0.31  p_gross=0.5093  n=14867
+    atr_momentum           h=20   net   +0.28 bps  gross -0.32  p_gross=0.9736  n=743
+    ema_cross              h=1    net   +0.50 bps  gross -0.10  p_gross=0.8246  n=14820
+    funding_rate           h=1    net   +0.30 bps  gross -0.30  p_gross=0.5126  n=14994
+    funding_rate           h=5    net   +0.93 bps  gross +0.33  p_gross=0.8811  n=2997
+    funding_rate           h=20   net   +0.24 bps  gross -0.36  p_gross=0.9700  n=747
+    macd_histogram         h=1    net   +0.66 bps  gross +0.06  p_gross=0.9014  n=14820
+    macd_histogram         h=5    net   +0.60 bps  gross +0.00  p_gross=0.9991  n=2964
+    obv_divergence         h=1    net   +1.74 bps  gross +1.14  p_gross=0.2118  n=3006
+    obv_divergence         h=5    net   +5.42 bps  gross +4.82  p_gross=0.2536  n=751
+    rsi                    h=5    net   +8.51 bps  gross +7.91  p_gross=0.7388  n=83
+    rsi                    h=100  net   +2.80 bps  gross +2.20  p_gross=0.9866  n=43
+    rsi_momentum           h=1    net   +0.85 bps  gross +0.25  p_gross=0.5884  n=14910
+
+  Of those, 0 have a gross edge distinguishable from zero
+  (p_gross < 0.05, uncorrected). A cell that is profitable only because
+  its cost fell, while its gross edge remains indistinguishable from
+  noise, is not a finding -- it is a rounding error with a smaller
+  subtraction applied.
+
+  Reminder: adverse selection on passive fills is not modelled. These are
+  upper bounds on maker economics, and any signal needing immediacy cannot
+  be executed passively at all.
+==============================================================================
+
+[exited with code 0]
