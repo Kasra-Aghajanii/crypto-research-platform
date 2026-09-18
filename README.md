@@ -223,5 +223,6 @@ MIT
 
 ---
 
-<!-- TODO: replace before publishing -->
-Built by **[YOUR NAME]** — [your email] · [your GitHub] · [LinkedIn if you have one]
+Built by **Kasra Aghajani** � [github.com/Kasra-Aghajanii](https://github.com/Kasra-Aghajanii)
+
+Open to freelance work on real-time data pipelines and streaming infrastructure. Reach me through GitHub.
